@@ -37,6 +37,7 @@ public class Post extends BaseEntity {
     private boolean isPublished;
     @Setter(PROTECTED)
     private long hit;
+    private boolean isPaid;
 
     public void increaseHit() {
         hit++;

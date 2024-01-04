@@ -1,38 +1,17 @@
 # 할일
 
-## 회원작업
+## 필수 미션
 
-- [x] GET /member/join : 가입 폼
-- [x] POST /member/join : 가입 폼 처리
-- [x] GET /member/login : 로그인 폼
-- [x] POST /member/login : 로그인 폼 처리
-- [x] POST /member/logout : 로그아웃
+- [x] 필수미션 1 : Member 클래스에 private boolean isPaid 필드를 추가
+- [x] 필수미션 2 : Post 클래스에 private boolean isPaid 필드를 추가
+- [x] 필수미션 3 : NotProd 에서 유료멤버십 회원(샘플 데이터)과 유료글(샘플 데이터)을 각각 100개 이상 생성
 
-## 글 작업
-
-- [x] GET / : 홈
-    - 최신글 30개 노출
-- [x] GET /post/list : 전체 글 리스트
-    - 공개된 글만 노출
-- [x] GET /post/myList : 내 글 리스트
-    - 내 글 목록 조회
-- [x] GET /post/1 : 1번 글 상세보기
-- [x] GET /post/write : 글 작성 폼
-- [x] POST /post/write : 글 작성 처리
-- [x] GET /post/1/modify : 1번 글 수정 폼
-- [x] PUT /post/1/modify : 1번 글 수정 폼 처리
-- [x] DELETE /post/1/delete : 1번 글 삭제
-
-## 블로그 작업
-
-- [x] GET /b/user1 : 회원 user1 의 전체 글 리스트
-    - 특정 회원의 글 모아보기
-- [x] GET /b/user1/3 : 회원 user1 의 글 중에서 3번글 상세보기
-
-## 추가 작업
-
-- [x] 조회수
-- [x] 추천수
-- [x] 댓글 작성
-- [x] 댓글 수정
-- [x] 댓글 삭제
+## 선택 미션
+- [ ] 선택미션 1 : 검색 필터링, 정렬
+- [ ] 선택미션 2 : 글 본문에 마크다운 에디터 적용
+- [ ] 선택미션 3 : 토스트 UI 에디터에 이미지 파일 업로드 기능 적용
+- [ ] 선택미션 4 : 카카오 로그인
+- [ ] 선택미션 5 : 위 모든 기능의 뷰를 타임리프 뿐 아니라 별도의 도메인에서 스벨트킷으로도 구현
+- [ ] 선택미션 6 : 배포, 도메인 연결, 젠킨스 CI/CD
+- [ ] 선택미션 7 : 배포, 도메인 연결, 쿠버네티스, 깃허브액션, 무중단 CI/CD
+- [ ] 선택미션 8 : 정산기능구현
