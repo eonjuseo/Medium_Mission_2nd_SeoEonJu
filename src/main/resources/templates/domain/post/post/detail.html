@@ -31,7 +31,10 @@
 
     <div>
         <h3>내용</h3>
-        <div style="white-space: pre-wrap;" th:text="${post.body}"></div>
+        <div style="white-space: pre-wrap;" th:if="${post.isPaid && !@rq.member.isPaid()}">
+            이 글은 유료멤버십전용 입니다.
+        </div>
+        <div style="white-space: pre-wrap;" th:if="${!post.isPaid || @rq.member.isPaid()}" th:text="${post.body}"></div>
     </div>
 
     <hr>

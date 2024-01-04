@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +31,28 @@ public class PostController {
     private final Rq rq;
 
     @GetMapping("/{id}")
-    public String showDetail(@PathVariable long id) {
+    public String showDetail(@PathVariable long id, Authentication authentication) {
         Post post = postService.findById(id).orElseThrow(() -> new GlobalException("404-1", "해당 글이 존재하지 않습니다."));
 
         postService.increaseHit(post);
 
         rq.setAttribute("post", post);
+//        postService.findById(id).ifPresent(post -> { // 값이 존재할 때 수행할 동작
+//
+//            // 유료 글이면서 멤버십 회원이 아닌 경우
+//            if (post.isPaid() && !isPaidUser(authentication)) {
+//               throw new GlobalException("403-1", "이 글은 유료 멤버십 전용 입니다.");
+//            } else {
+//                postService.increaseHit(post);
+//                rq.setAttribute("post", postService.findById(id).get());
+//            }
+//        });
 
         return "domain/post/post/detail";
+    }
+
+    private boolean isPaidUser(Authentication authentication) {
+        return authentication != null && authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_PAID"));
     }
 
     @GetMapping("/list")
@@ -86,12 +102,13 @@ public class PostController {
         @NotBlank
         private String body;
         private boolean isPublished;
+        private boolean isPaid;
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     public String write(@Valid WriteForm form) {
-        Post post = postService.write(rq.getMember(), form.getTitle(), form.getBody(), form.isPublished());
+        Post post = postService.write(rq.getMember(), form.getTitle(), form.getBody(), form.isPublished(),form.isPaid());
 
         return rq.redirect("/post/" + post.getId(), post.getId() + "번 글이 작성되었습니다.");
     }
